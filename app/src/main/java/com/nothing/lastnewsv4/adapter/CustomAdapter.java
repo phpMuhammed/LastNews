@@ -63,22 +63,16 @@ public class CustomAdapter extends BaseAdapter {
             TextView newsDate = myview.findViewById(R.id.news_date);
             final Button favButton = myview.findViewById(R.id.news_fave);
 
-            if (news.get(position).getImg() == null) {
+
+            //Bitmap bitmap = new Bitmap();
+            // newsImage.setImageBitmap();
+
+            byte[] theNewsImg = news.get(position).getImg();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(theNewsImg, 0, theNewsImg.length);
+            if (theNewsImg == null || bitmap == null) {
                 newsImage.setImageResource(R.drawable.ic_launcher_background);
             } else {
-                //Bitmap bitmap = new Bitmap();
-                // newsImage.setImageBitmap();
-
-                byte[] theNewsImg = news.get(position).getImg();
-                Bitmap bitmap = BitmapFactory.decodeByteArray(theNewsImg, 0, theNewsImg.length);
-                if (theNewsImg == null || bitmap == null) {
-                    newsImage.setImageResource(R.drawable.ic_launcher_background);
-
-                } else {
-                    newsImage.setImageBitmap(bitmap);
-
-                }
-                //Log.d("moh",bitmap.toString());
+                newsImage.setImageBitmap(bitmap);
             }
             newsTitle.setText(news.get(position).getTitle());
             newsDate.setText(news.get(position).getDate());
@@ -95,7 +89,7 @@ public class CustomAdapter extends BaseAdapter {
                         //  favButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
 //                        notifyDataSetChanged();
                         //notifyDataSetChanged();
-                        //        TappedActivity.refreshFragments();
+                        TappedActivity.refreshFragments();
 
                     }
                 });
@@ -112,7 +106,7 @@ public class CustomAdapter extends BaseAdapter {
                         //this.notifyAll();
                         //notifyDataSetChanged();
 
-                        //     TappedActivity.refreshFragments();
+                        TappedActivity.refreshFragments();
                     }
                 });
             }
