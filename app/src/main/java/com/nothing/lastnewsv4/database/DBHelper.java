@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.nothing.lastnewsv4.model.News;
 
@@ -68,35 +69,56 @@ public class DBHelper extends SQLiteOpenHelper {
 
         contentValues.put(News.COL_IS_FAVE, isFave);
 
-        //contentValues.put(News.COL_IMAGE, img);
         return sqLiteDatabase.update(News.TABLE_NAME, contentValues, "id=?", new String[]{String.valueOf(oldId)}) > 0;
     }
 
     public ArrayList<News> getAllNews() {
-//
-//        ArrayList<News> newsArrayList = new ArrayList<>();
-//
+
         String sqlQuery = "select * from " + News.TABLE_NAME + " order by id desc";
-//        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
-//
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                News news = new News();
-//                news.setId(cursor.getInt(cursor.getColumnIndex(News.COL_ID)));
-//                news.setDate(cursor.getString(cursor.getColumnIndex(News.COL_DATE)));
-//                news.setDetails(cursor.getString(cursor.getColumnIndex(News.COL_DETAILS)));
-//                news.setTitle(cursor.getString(cursor.getColumnIndex(News.COL_TITLE)));
-//                news.setIsFave(cursor.getInt(cursor.getColumnIndex(News.COL_IS_FAVE)));
-//                news.setImg(cursor.getBlob(cursor.getColumnIndex(News.COL_IMAGE)));
-//                // Log.e("eee",news.getDate());
-//                newsArrayList.add(news);
-//
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return newsArrayList;
         return returnNewsFromDataBase(sqlQuery);
+    }
+    public ArrayList<News> getAllNewsWithFillter(String constraint){
+//        String sqlQuery = "select * from " + News.TABLE_NAME +
+//                " where " + News.COL_TITLE + " like  %"+constraint+"% ,OR " +
+//                News.COL_DETAILS + " like %"+constraint+"%";
+
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + News.TABLE_NAME +
+                " where " + News.COL_DETAILS + " like ? OR " +
+                News.COL_TITLE + " like ?", new String[]{"%" + constraint + "%", "%" + constraint + "%"});
+        Log.d("moh","test execute");
+        return returnNewsFromDataBase(cursor);
+
+    }
+    public ArrayList<News> getAllNewsWithFillter(String constraint,boolean fave){
+//        String sqlQuery = "select * from " + News.TABLE_NAME +
+//                " where " + News.COL_TITLE + " like  %"+constraint+"% ,OR " +
+//                News.COL_DETAILS + " like %"+constraint+"%";
+
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from " + News.TABLE_NAME +
+                " where isfave = 1 and " + News.COL_DETAILS + " like ? OR " +
+                News.COL_TITLE + " like ?", new String[]{"%" + constraint + "%", "%" + constraint + "%"});
+        return returnNewsFromDataBase(cursor);
+
+    }
+
+    private ArrayList<News> returnNewsFromDataBase(Cursor cursor) {
+        ArrayList<News> newsArrayList = new ArrayList<>();
+        //Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                News news = new News();
+                news.setId(cursor.getInt(cursor.getColumnIndex(News.COL_ID)));
+                news.setDate(cursor.getString(cursor.getColumnIndex(News.COL_DATE)));
+                news.setDetails(cursor.getString(cursor.getColumnIndex(News.COL_DETAILS)));
+                news.setTitle(cursor.getString(cursor.getColumnIndex(News.COL_TITLE)));
+                news.setIsFave(cursor.getInt(cursor.getColumnIndex(News.COL_IS_FAVE)));
+                news.setImg(cursor.getBlob(cursor.getColumnIndex(News.COL_IMAGE)));
+
+                newsArrayList.add(news);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return newsArrayList;
     }
 
     /**
@@ -105,27 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<News> getFaveNews() {
 
-//        ArrayList<News> newsArrayList = new ArrayList<>();
-//
         String sqlQuery = "select * from " + News.TABLE_NAME + " where isfave = 1 order by id desc";
-//        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
-//
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                News news = new News();
-//                news.setId(cursor.getInt(cursor.getColumnIndex(News.COL_ID)));
-//                news.setDate(cursor.getString(cursor.getColumnIndex(News.COL_DATE)));
-//                news.setDetails(cursor.getString(cursor.getColumnIndex(News.COL_DETAILS)));
-//                news.setTitle(cursor.getString(cursor.getColumnIndex(News.COL_TITLE)));
-//                news.setIsFave(cursor.getInt(cursor.getColumnIndex(News.COL_IS_FAVE)));
-//                news.setImg(cursor.getBlob(cursor.getColumnIndex(News.COL_IMAGE)));
-//
-//                newsArrayList.add(news);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        return newsArrayList;
         return returnNewsFromDataBase(sqlQuery);
     }
 

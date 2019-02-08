@@ -7,11 +7,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.FilterQueryProvider;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,7 +38,8 @@ public class LastNewsFragment extends Fragment {
     public static CustomAdapter customAdapter;
     DBHelper dbHelper;
     ArrayList<News> newsArrayList;
-    ListView listView;
+    public static ListView listView;
+     EditText searchEd = TappedActivity.search;
 
     public LastNewsFragment() {
         // Required empty public constructor
@@ -47,7 +52,8 @@ public class LastNewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_last_news, container, false);
         listView = root.findViewById(R.id.news_list_view);
-     //   showLastNews();
+        //   showLastNews();
+        // searchEd = root.findViewById(R.id.search_news);
 
         return root;
     }
@@ -55,7 +61,32 @@ public class LastNewsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         showLastNews();
+
+        searchEd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                String constraint = s.toString();
+                ArrayList<News> newsArrayList =dbHelper.getAllNewsWithFillter(constraint);
+                //customAdapter.getFilter().filter(constraint);
+                customAdapter = new CustomAdapter(getActivity(),newsArrayList);
+                listView.setAdapter(customAdapter);
+
+            }
+        });
+
     }
 
     public void showLastNews() {
@@ -63,8 +94,12 @@ public class LastNewsFragment extends Fragment {
         dbHelper = new DBHelper(getActivity());
         newsArrayList = dbHelper.getAllNews();
         customAdapter = new CustomAdapter(getActivity(), newsArrayList);
-
+        listView.setTextFilterEnabled(true);
         listView.setAdapter(customAdapter);
+
+        //  TappedActivity.refreshFragments();
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

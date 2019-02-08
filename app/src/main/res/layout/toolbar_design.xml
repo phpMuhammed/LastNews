@@ -15,8 +15,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:title="@string/app_name">
-
+        app:title="News"
+        >
+    <EditText
+        android:id="@+id/search_news"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:hint="search"
+        android:maxHeight="300dp"
+        android:inputType="text"
+        android:visibility="invisible"
+        />
 
     </android.support.v7.widget.Toolbar>
 

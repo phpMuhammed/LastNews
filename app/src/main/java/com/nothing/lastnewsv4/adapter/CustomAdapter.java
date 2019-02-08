@@ -11,8 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +29,7 @@ import com.nothing.lastnewsv4.model.News;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends BaseAdapter {
+public class CustomAdapter extends BaseAdapter  implements Filterable {
 
     Activity activity;
     ArrayList<News> news;
@@ -110,8 +114,21 @@ public class CustomAdapter extends BaseAdapter {
                     }
                 });
             }
-
+            didTapButton(favButton);
         }
+
+
         return myview;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
+    }
+
+    public void didTapButton(Button btn) {
+
+        final Animation myAnim = AnimationUtils.loadAnimation(activity, R.anim.bounc);
+        btn.startAnimation(myAnim);
     }
 }
