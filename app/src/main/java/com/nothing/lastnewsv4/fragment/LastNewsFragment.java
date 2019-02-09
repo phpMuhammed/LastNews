@@ -52,6 +52,7 @@ public class LastNewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_last_news, container, false);
         listView = root.findViewById(R.id.news_list_view);
+        listView.setDivider(null);
         //   showLastNews();
         // searchEd = root.findViewById(R.id.search_news);
 

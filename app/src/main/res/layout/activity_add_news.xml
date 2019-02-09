@@ -1,53 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#C914A5F3"
     tools:context=".AddNewsActivity">
 
-        <ImageView
-            android:id="@+id/add_img_from_gallary_add"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:text="img"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_launcher_foreground"/>
+    <ImageView
+        android:id="@+id/add_img_from_gallary_add"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/addphoto"
+        android:text="img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/add_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="TextView"
-            android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@+id/add_img_from_gallary_add"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <EditText
+        android:id="@+id/add_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/inputs"
+        android:hint="Enter Title"
+        android:inputType="textMultiLine"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_img_from_gallary_add" />
 
     <EditText
         android:id="@+id/add_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="TextView"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/inputs"
+        android:hint="Enter Body"
         android:inputType="textMultiLine"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_title"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/addBtn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/buttons"
+        android:paddingLeft="80dp"
+        android:paddingTop="16dp"
+        android:paddingRight="80dp"
+        android:paddingBottom="16dp"
+        android:text="add news"
+        android:textColor="#CCEFEF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_desc"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.5" />
 
 
-    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

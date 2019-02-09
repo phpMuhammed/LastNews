@@ -60,21 +60,20 @@ public class TappedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Snackbar.make(view, "click add to add new news", Snackbar.LENGTH_LONG)
-                        .setAction("add", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-//                            Intent intent = new Intent(TappedActivity.this,AddNewsActivity.class);
-//                            startActivity(intent);
+//                Snackbar.make(view, "click add to add new news", Snackbar.LENGTH_LONG)
+//                        .setAction("add", new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+////                            Intent intent = new Intent(TappedActivity.this,AddNewsActivity.class);
+////                            startActivity(intent);
 
-                                Intent pickContactIntent = new Intent(TappedActivity.this, AddNewsActivity.class);
-                                //    pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
-                                startActivityForResult(pickContactIntent, SECOND_ACTIVITY_REQUEST_CODE);
-                            }
-                        }).show();
+                Intent pickContactIntent = new Intent(TappedActivity.this, AddNewsActivity.class);
+                //    pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+                startActivityForResult(pickContactIntent, SECOND_ACTIVITY_REQUEST_CODE);
             }
+//                        }).show();
+//            }
         });
-
 
 
         //   onActivityResult(TappedActivity.PICK_CONTACT_REQUEST, 1, getIntent());
@@ -106,12 +105,12 @@ public class TappedActivity extends AppCompatActivity {
             item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                   int x = opened++;
-                   if(x%2 == 0){
-                       search.setVisibility(View.INVISIBLE);
-                   }else{
-                       search.setVisibility(View.VISIBLE);
-                   }
+                    int x = opened++;
+                    if (x % 2 == 0) {
+                        search.setVisibility(View.INVISIBLE);
+                    } else {
+                        search.setVisibility(View.VISIBLE);
+                    }
 
                     return true;
                 }

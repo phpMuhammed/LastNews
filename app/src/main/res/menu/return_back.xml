@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.nothing.lastnewsv4.DetailsActivity">
     <item
+        android:id="@+id/delete_post"
+        android:orderInCategory="100"
+        android:title="delete"
+        android:icon="@drawable/ic_delete_black_24dp"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/back_arrow"
         android:orderInCategory="100"
         android:title="back"

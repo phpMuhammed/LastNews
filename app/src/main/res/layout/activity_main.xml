@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".DetailsActivity"
+    android:layout_height="match_parent"
+    android:background="#C914A5F3"
 
-    >
+    tools:context=".DetailsActivity">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -15,47 +16,66 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/included_toolbar"
-            layout="@layout/toolbar_design_details" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/details_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            app:layout_constraintBottom_toTopOf="@+id/details_news_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/app_name">
+
+        </android.support.v7.widget.Toolbar>
+
 
         <ImageView
             android:id="@+id/details_news_img"
             android:layout_width="match_parent"
             android:layout_height="380dp"
+            android:layout_margin="24dp"
             android:maxHeight="380dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/included_toolbar"
+            app:layout_constraintHorizontal_bias="0.0"
 
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_toolbar" />
 
         <TextView
             android:id="@+id/details_news_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
-            android:background="#A8673AB7"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
+            android:background="@drawable/textview"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="8dp"
             android:text="11:00PM"
             android:textColor="#eee"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@id/details_news_img"
-            app:layout_constraintTop_toBottomOf="@+id/included_toolbar" />
+            app:layout_constraintTop_toTopOf="@+id/details_news_img" />
 
         <TextView
             android:id="@+id/details_news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="8dp"
             android:gravity="center"
             android:text="Bla Bla Bla"
-            android:textColor="#000"
-            android:textSize="20sp"
+            android:textColor="#eee"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.166"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details_news_img" />
 
@@ -63,17 +83,17 @@
             android:id="@+id/details_news_detials"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
+            android:layout_margin="24dp"
+            android:gravity="start"
             android:text="Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
-            android:textColor="#222"
+
+            android:textColor="#eee"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details_news_title"
-            app:layout_constraintVertical_bias="0.06" />
+            app:layout_constraintVertical_bias="0.0" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
 

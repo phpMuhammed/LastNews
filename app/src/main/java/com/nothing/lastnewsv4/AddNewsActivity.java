@@ -9,12 +9,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.nothing.lastnewsv4.database.DBHelper;
 import com.nothing.lastnewsv4.fragment.LastNewsFragment;
 import com.nothing.lastnewsv4.model.News;
@@ -55,14 +58,6 @@ public class AddNewsActivity extends AppCompatActivity implements IPickResult {
         detailsEd = findViewById(R.id.add_desc);
         addBtn = findViewById(R.id.addBtn);
 
-//        if(imgButn.getNumb){
-//
-//        }
-
-
-        ;
-
-//        img = imageViewToByte(imgButn);
         imgButn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,37 +76,50 @@ public class AddNewsActivity extends AppCompatActivity implements IPickResult {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                dbHelper = new DBHelper(AddNewsActivity.this);
-
-
-                String title = titleEd.getText().toString();
-                String details = detailsEd.getText().toString();
-                Calendar c = Calendar.getInstance();
-                // String date = c.getTime()+"";
-                String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-
-                int isFave = 0;
+                Log.d("mohammed", titleEd.getText().toString());
+                if (!titleEd.getText().toString().equals("") && !detailsEd.getText().toString().equals("")) {
+                    dbHelper = new DBHelper(AddNewsActivity.this);
 
 
-                if (clicked == true) {
-                    img = imageViewToByte(imgButn);
+                    String title = titleEd.getText().toString();
+                    String details = detailsEd.getText().toString();
+                    Calendar c = Calendar.getInstance();
+
+                    String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+
+                    int isFave = 0;
+
+
+                    if (clicked == true) {
+                        img = imageViewToByte(imgButn);
+
+                    } else {
+                        img = imageViewToByte(imgButn, 0);
+                    }
+                    if (dbHelper.insertNews(title, details, mydate, isFave, img)) {
+
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        Toast.makeText(AddNewsActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    }
 
                 } else {
-                    img = imageViewToByte(imgButn,0);
-                }
-                if (dbHelper.insertNews(title, details, mydate, isFave, img)) {
+                    animate(Techniques.Wave, 400, 5, titleEd);
+                    animate(Techniques.StandUp, 400, 5, imgButn);
+                    animate(Techniques.Swing, 400, 5, detailsEd);
 
-                    setResult(RESULT_OK);
-                    finish();
-                } else {
-                    Toast.makeText(AddNewsActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
             }
-
         });
 
+    }
 
+    public static void animate(Techniques techniques, long duration, int repeate, View target) {
+        YoYo.with(techniques)
+                .duration(duration)
+                .repeat(repeate)
+                .playOn(target);
     }
 
     @Override
@@ -135,13 +143,14 @@ public class AddNewsActivity extends AppCompatActivity implements IPickResult {
         return byteArray;
 
     }
-    private byte [] imageViewToByte(ImageView imageView,int t){
+
+    private byte[] imageViewToByte(ImageView imageView, int t) {
         imageView.buildDrawingCache();
         Bitmap bmap = imageView.getDrawingCache();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
-        return  byteArray;
+        return byteArray;
     }
 
 }

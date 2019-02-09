@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nothing.lastnewsv4.database.DBHelper;
 import com.nothing.lastnewsv4.model.News;
 
 import java.io.ByteArrayOutputStream;
@@ -20,15 +21,17 @@ import java.io.ByteArrayOutputStream;
 public class DetailsActivity extends AppCompatActivity {
     ImageView detailsImageView;
     TextView detailsTime, detailsTitle, detailsDescription;
-
+    static int x =0;
+    DBHelper database ;
+    static int  user_id = 0 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.nav_news_title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.details_toolbar);
         setSupportActionBar(toolbar);
 
-
+        database = new DBHelper(getApplicationContext());
         detailsImageView = findViewById(R.id.details_news_img);
         detailsTime = findViewById(R.id.details_news_time);
         detailsTitle = findViewById(R.id.details_news_title);
@@ -44,10 +47,11 @@ public class DetailsActivity extends AppCompatActivity {
             detailsDescription.setText(news.getDetails());
 
             detailsTitle.setText(news.getTitle());
+             user_id = news.getId();
 
             detailsTime.setText(news.getDate());
             toolbar.setTitle(news.getTitle());
-            
+
         }else{
             Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
         }
@@ -83,14 +87,30 @@ public class DetailsActivity extends AppCompatActivity {
             item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
+                    x+= 1;
                     onBackPressed();
                     return true;
                 }
             });
-            return true;
+            //return true;
+        }else if(id == R.id.delete_post){
+            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int user_id = DetailsActivity.user_id;
+                    if(database.deleteNews(user_id)){
+                        Intent intent = new Intent(DetailsActivity.this,TappedActivity.class);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(DetailsActivity.this, "Deleted Successfully ...", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+            });
+
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 }

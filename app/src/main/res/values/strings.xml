@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LastNewsV4</string>
+    <string name="app_name">Last News </string>
     <string name="title_activity_tapped">TappedActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

@@ -40,6 +40,7 @@ public class FaveNewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_fave_news, container, false);
          listView = root.findViewById(R.id.fave_list_view);
+        listView.setDivider(null);
 
         return root;
     }
@@ -95,6 +96,7 @@ public void searchMethode(){
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
                 intent.putExtra("news", newsArrayList.get(position));
                 startActivity(intent);
+
             }
         });
 

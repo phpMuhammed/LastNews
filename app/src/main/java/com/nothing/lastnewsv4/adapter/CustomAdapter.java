@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.nothing.lastnewsv4.R;
 import com.nothing.lastnewsv4.TappedActivity;
 import com.nothing.lastnewsv4.database.DBHelper;
@@ -29,7 +31,7 @@ import com.nothing.lastnewsv4.model.News;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends BaseAdapter  implements Filterable {
+public class CustomAdapter extends BaseAdapter implements Filterable {
 
     Activity activity;
     ArrayList<News> news;
@@ -84,25 +86,37 @@ public class CustomAdapter extends BaseAdapter  implements Filterable {
 
             if (news.get(position).getIsFave() != 0) {
                 favButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+
                 favButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         favButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+                        YoYo.with(Techniques.Tada)
+                                .duration(700)
+                                .repeat(5)
+                                .playOn(favButton);
                         DBHelper dbHelper = new DBHelper(activity);
                         dbHelper.updateNewsWhereFave(news.get(position).getId(), 0);
                         //  favButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
 //                        notifyDataSetChanged();
                         //notifyDataSetChanged();
+
                         TappedActivity.refreshFragments();
 
                     }
                 });
             } else {
                 favButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+
                 favButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         favButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                        YoYo.with(Techniques.StandUp)
+                                .duration(500)
+                                .repeat(5)
+                                .playOn(favButton);
                         DBHelper dbHelper = new DBHelper(activity);
                         dbHelper.updateNewsWhereFave(news.get(position).getId(), 1);
                         //favButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
@@ -111,10 +125,10 @@ public class CustomAdapter extends BaseAdapter  implements Filterable {
                         //notifyDataSetChanged();
 
                         TappedActivity.refreshFragments();
+
                     }
                 });
             }
-            didTapButton(favButton);
         }
 
 

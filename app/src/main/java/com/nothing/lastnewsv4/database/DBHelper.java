@@ -77,7 +77,12 @@ public class DBHelper extends SQLiteOpenHelper {
         String sqlQuery = "select * from " + News.TABLE_NAME + " order by id desc";
         return returnNewsFromDataBase(sqlQuery);
     }
-    public ArrayList<News> getAllNewsWithFillter(String constraint){
+
+    public boolean deleteNews(int id) {
+        return sqLiteDatabase.delete(News.TABLE_NAME, "id=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public ArrayList<News> getAllNewsWithFillter(String constraint) {
 //        String sqlQuery = "select * from " + News.TABLE_NAME +
 //                " where " + News.COL_TITLE + " like  %"+constraint+"% ,OR " +
 //                News.COL_DETAILS + " like %"+constraint+"%";
@@ -85,11 +90,12 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = sqLiteDatabase.rawQuery("select * from " + News.TABLE_NAME +
                 " where " + News.COL_DETAILS + " like ? OR " +
                 News.COL_TITLE + " like ?", new String[]{"%" + constraint + "%", "%" + constraint + "%"});
-        Log.d("moh","test execute");
+        Log.d("moh", "test execute");
         return returnNewsFromDataBase(cursor);
 
     }
-    public ArrayList<News> getAllNewsWithFillter(String constraint,boolean fave){
+
+    public ArrayList<News> getAllNewsWithFillter(String constraint, boolean fave) {
 //        String sqlQuery = "select * from " + News.TABLE_NAME +
 //                " where " + News.COL_TITLE + " like  %"+constraint+"% ,OR " +
 //                News.COL_DETAILS + " like %"+constraint+"%";
