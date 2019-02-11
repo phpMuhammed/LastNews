@@ -1,9 +1,11 @@
 package com.nothing.lastnewsv4;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,9 +23,11 @@ import java.io.ByteArrayOutputStream;
 public class DetailsActivity extends AppCompatActivity {
     ImageView detailsImageView;
     TextView detailsTime, detailsTitle, detailsDescription;
-    static int x =0;
-    DBHelper database ;
-    static int  user_id = 0 ;
+
+    static int x = 0;
+    DBHelper database;
+    static int user_id = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +51,12 @@ public class DetailsActivity extends AppCompatActivity {
             detailsDescription.setText(news.getDetails());
 
             detailsTitle.setText(news.getTitle());
-             user_id = news.getId();
+            user_id = news.getId();
 
             detailsTime.setText(news.getDate());
             toolbar.setTitle(news.getTitle());
 
-        }else{
+        } else {
             Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
         }
 
@@ -77,40 +81,57 @@ public class DetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+
+        // int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.back_arrow) {
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    x+= 1;
-                    onBackPressed();
-                    return true;
-                }
-            });
-            //return true;
-        }else if(id == R.id.delete_post){
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    int user_id = DetailsActivity.user_id;
-                    if(database.deleteNews(user_id)){
-                        Intent intent = new Intent(DetailsActivity.this,TappedActivity.class);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(DetailsActivity.this, "Deleted Successfully ...", Toast.LENGTH_SHORT).show();
-                    }
-                    return true;
-                }
-            });
-
+        switch (item.getItemId()) {
+            case R.id.back_arrow:
+                x += 1;
+                onBackPressed();
+                return true;
+            case R.id.delete_post:
+                onDeleteAlertDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
 
-        return true;
+    public void onDeleteAlertDialog() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(DetailsActivity.this).create();
+        alertDialog.setTitle("Delete");
+        alertDialog.setMessage("Alert message to be shown");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        int user_id = DetailsActivity.user_id;
+                        if (database.deleteNews(user_id)) {
+                            Intent intent = new Intent(DetailsActivity.this, TappedActivity.class);
+                            startActivity(intent);
+                            finish();
+                            Toast.makeText(DetailsActivity.this, "Deleted Successfully ...", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(DetailsActivity.this, "nothing deleted ", Toast.LENGTH_SHORT).show();
+                        }
+
+                        dialog.dismiss();
+//                        test = true;
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+//                test = false;
+            }
+        });
+        alertDialog.show();
+        // return test;
     }
 
 }

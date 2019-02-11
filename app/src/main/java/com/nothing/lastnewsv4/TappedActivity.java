@@ -1,11 +1,9 @@
 package com.nothing.lastnewsv4;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,12 +18,10 @@ import android.widget.EditText;
 
 import com.nothing.lastnewsv4.adapter.SectionsPagerAdapter;
 import com.nothing.lastnewsv4.database.DBHelper;
-import com.nothing.lastnewsv4.fragment.FaveNewsFragment;
-import com.nothing.lastnewsv4.fragment.LastNewsFragment;
 
 
 public class TappedActivity extends AppCompatActivity {
-
+    static boolean x = true;
     private static SectionsPagerAdapter mSectionsPagerAdapter;
     static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
     int opened = 0;
@@ -60,23 +56,13 @@ public class TappedActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                Snackbar.make(view, "click add to add new news", Snackbar.LENGTH_LONG)
-//                        .setAction("add", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-////                            Intent intent = new Intent(TappedActivity.this,AddNewsActivity.class);
-////                            startActivity(intent);
-
                 Intent pickContactIntent = new Intent(TappedActivity.this, AddNewsActivity.class);
-                //    pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
                 startActivityForResult(pickContactIntent, SECOND_ACTIVITY_REQUEST_CODE);
             }
-//                        }).show();
-//            }
+
         });
 
 
-        //   onActivityResult(TappedActivity.PICK_CONTACT_REQUEST, 1, getIntent());
     }
 
     @Override
@@ -85,16 +71,14 @@ public class TappedActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_tapped, menu);
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -102,23 +86,36 @@ public class TappedActivity extends AppCompatActivity {
 
         } else if (id == R.id.action_search) {
 
-            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    int x = opened++;
-                    if (x % 2 == 0) {
-                        search.setVisibility(View.INVISIBLE);
-                    } else {
-                        search.setVisibility(View.VISIBLE);
-                    }
+            search.setVisibility(View.VISIBLE);
+            search.setVisibility(View.INVISIBLE);
+            if(x){
+                search.setVisibility(View.VISIBLE);
+                x = false;
+            }else{
+                search.setVisibility(View.INVISIBLE);
+                x = true;
+            }
+//
+//            x = true;
+//            item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//
+//                @Override
+//
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    search.setVisibility(View.INVISIBLE);
+//
+//                    return true;
+//                }
+//            });
+//            if (x == true) {
+//                search.setVisibility(View.VISIBLE);
+//            }
 
-                    return true;
-                }
-            });
+            return true;
 
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
 

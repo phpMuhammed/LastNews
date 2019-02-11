@@ -23,11 +23,11 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:layout_constraintBottom_toTopOf="@+id/details_news_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:title="@string/app_name">
 
         </android.support.v7.widget.Toolbar>
@@ -59,7 +59,7 @@
             android:paddingBottom="8dp"
             android:text="11:00PM"
             android:textColor="#eee"
-            android:textSize="24sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/details_news_img"
             app:layout_constraintTop_toTopOf="@+id/details_news_img" />
 
@@ -69,8 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:padding="8dp"
+            android:fontFamily="@font/yumaro"
             android:gravity="center"
+            android:padding="8dp"
             android:text="Bla Bla Bla"
             android:textColor="#eee"
             android:textSize="24sp"
@@ -84,9 +85,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
+            android:fontFamily="@font/broetownsignature"
             android:gravity="start"
             android:text="Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla"
-
             android:textColor="#eee"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"

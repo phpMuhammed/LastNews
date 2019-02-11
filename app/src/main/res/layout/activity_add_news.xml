@@ -11,9 +11,8 @@
     <ImageView
         android:id="@+id/add_img_from_gallary_add"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="152dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
         android:src="@drawable/addphoto"
         android:text="img"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,43 +23,64 @@
         android:id="@+id/add_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="64dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/inputs"
         android:hint="Enter Title"
         android:inputType="textMultiLine"
+        android:maxHeight="64dp"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_img_from_gallary_add" />
+        app:layout_constraintTop_toBottomOf="@+id/add_img_from_gallary_add"
+        android:fontFamily="@font/broetownsignature"/>
+
+    <Button
+        android:id="@+id/add_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/inputs"
+        android:text="Click to chose added time"
+        android:inputType="textMultiLine"
+        android:maxHeight="64dp"
+        android:padding="16dp"
+        android:textColor="#525252"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_title" />
 
     <EditText
+        android:fontFamily="@font/broetownsignature"
         android:id="@+id/add_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/inputs"
         android:hint="Enter Body"
         android:inputType="textMultiLine"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/addBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/add_time"
+        app:layout_constraintVertical_bias="0.08" />
 
     <Button
         android:id="@+id/addBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="56dp"
         android:background="@drawable/buttons"
         android:paddingLeft="80dp"
         android:paddingTop="16dp"
@@ -71,10 +91,9 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_desc"
-        app:layout_constraintVertical_bias="0.5" />
+        android:fontFamily="@font/yumaro"/>
 
 
 </android.support.constraint.ConstraintLayout>

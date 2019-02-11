@@ -6,27 +6,34 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/own_tool_bar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_scrollFlags="scroll|enterAlways"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:title="News"
-        >
-    <EditText
-        android:id="@+id/search_news"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:hint="search"
-        android:maxHeight="300dp"
-        android:inputType="text"
-        android:visibility="invisible"
-        />
+        android:visibility="visible">
 
     </android.support.v7.widget.Toolbar>
 
+
+    <EditText
+        android:id="@+id/search_news"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:hint="search"
+        android:layout_marginStart="8dp"
+        android:inputType="text"
+        android:maxHeight="300dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/own_tool_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

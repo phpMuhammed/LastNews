@@ -1,5 +1,6 @@
 package com.nothing.lastnewsv4;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -33,9 +35,9 @@ import java.util.Calendar;
 public class AddNewsActivity extends AppCompatActivity implements IPickResult {
     DBHelper dbHelper;
     ImageView imgButn;
-    Button addBtn;
+    Button addBtn ,timeBtn;
     EditText titleEd;
-    EditText detailsEd;
+    EditText detailsEd ;
     boolean clicked = false;
 
     static final int RESULT_CANCELED = 0;
@@ -57,12 +59,33 @@ public class AddNewsActivity extends AppCompatActivity implements IPickResult {
         titleEd = findViewById(R.id.add_title);
         detailsEd = findViewById(R.id.add_desc);
         addBtn = findViewById(R.id.addBtn);
-
+        timeBtn = findViewById(R.id.add_time);
         imgButn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PickImageDialog.build(new PickSetup()).show(AddNewsActivity.this);
                 clicked = true;
+            }
+        });
+
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(AddNewsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timeBtn.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
             }
         });
 
@@ -77,16 +100,16 @@ public class AddNewsActivity extends AppCompatActivity implements IPickResult {
             @Override
             public void onClick(View v) {
                 Log.d("mohammed", titleEd.getText().toString());
-                if (!titleEd.getText().toString().equals("") && !detailsEd.getText().toString().equals("")) {
+                if (!titleEd.getText().toString().equals("") && !detailsEd.getText().toString().equals("") && clicked&& !timeBtn.getText().toString().equals("")) {
                     dbHelper = new DBHelper(AddNewsActivity.this);
 
 
                     String title = titleEd.getText().toString();
                     String details = detailsEd.getText().toString();
-                    Calendar c = Calendar.getInstance();
+                 //   Calendar c = Calendar.getInstance();
 
-                    String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-
+                   // String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+                    String mydate = timeBtn.getText().toString();
                     int isFave = 0;
 
 
@@ -105,9 +128,9 @@ public class AddNewsActivity extends AppCompatActivity implements IPickResult {
                     }
 
                 } else {
-                    animate(Techniques.Wave, 400, 5, titleEd);
-                    animate(Techniques.StandUp, 400, 5, imgButn);
-                    animate(Techniques.Swing, 400, 5, detailsEd);
+                    animate(Techniques.Wave, 300, 3, titleEd);
+                    animate(Techniques.StandUp, 300, 3, imgButn);
+                    animate(Techniques.Swing, 300, 3, detailsEd);
 
                 }
             }
